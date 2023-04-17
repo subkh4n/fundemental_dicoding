@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:newsdicoding/article.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import 'package/widget/custom_scafold.dart';
+
 class ArticleDetailPage extends StatelessWidget {
   static const routeName = '/article_detail';
 
@@ -33,21 +35,40 @@ class ArticleDetailPage extends StatelessWidget {
                       fontSize: 24,
                     ),
                   ),
-                  const Divider(color: Colors.grey),
-                  Text('Date: ${article.publishedAt}'),
-                  const SizedBox(height: 10),
-                  Text('Author: ${article.author}'),
-                  const Divider(color: Colors.grey),
+                  const Divider(
+                    color: Colors.grey,
+                  ),
+                  Text(
+                    'Date: ${article.publishedAt}',
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'Author: ${article.author}',
+                  ),
+                  const Divider(
+                    color: Colors.grey,
+                  ),
                   Text(
                     article.content,
-                    style: const TextStyle(fontSize: 16),
+                    style: const TextStyle(
+                      fontSize: 16,
+                    ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   ElevatedButton(
-                    child: const Text('Read more'),
+                    child: const Text(
+                      'Read more',
+                    ),
                     onPressed: () {
-                      Navigator.pushNamed(context, ArticleWebView.routeName,
-                          arguments: article.url);
+                      Navigator.pushNamed(
+                        context,
+                        ArticleWebView.routeName,
+                        arguments: article.url,
+                      );
                     },
                   ),
                 ],
@@ -60,6 +81,27 @@ class ArticleDetailPage extends StatelessWidget {
   }
 }
 
+// class ArticleWebView extends StatelessWidget {
+//   static const routeName = '/article_web';
+
+//   final String url;
+
+//   const ArticleWebView({Key? key, required this.url}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final controller = WebViewController()..loadRequest(Uri.parse(url));
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('News App'),
+//       ),
+//       body: WebViewWidget(
+//         controller: controller,
+//       ),
+//     );
+//   }
+// }
+
 class ArticleWebView extends StatelessWidget {
   static const routeName = '/article_web';
 
@@ -69,13 +111,9 @@ class ArticleWebView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = WebViewController()..loadRequest(Uri.parse(url));
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('News App'),
-      ),
-      body: WebViewWidget(
-        controller: controller,
+    return CustomScaffold(
+      body: WebView(
+        initialUrl: url,
       ),
     );
   }
